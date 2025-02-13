@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaGoogle, FaUser, FaEnvelope, FaLock } from "react-icons/fa6";
 import { NavLink } from "react-router";
-import { Layout } from "../layouts/Layout";
+import { AuthLayout } from "../layouts/AuthLayout";
 
 export const SignupPage = () => {
     const [username, setUsername] = useState("");
@@ -11,7 +11,7 @@ export const SignupPage = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [message, setMessage] = useState("");
 
-    const onSubmit = async (e) => {
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
@@ -32,7 +32,7 @@ export const SignupPage = () => {
     };
 
     return (
-        <Layout>
+        <AuthLayout>
             <div className="bg-white flex w-6/12 rounded-md">
                 <div className="pt-8 px-8 pb-4 w-1/2">
                     <div className="flex justify-center gap-4 mb-16">
@@ -143,6 +143,6 @@ export const SignupPage = () => {
                 </div>
                 <div className="w-1/2"></div>
             </div>
-        </Layout>
+        </AuthLayout>
     );
 };

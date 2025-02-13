@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.get("/", async (req, res) => {
+router.put("/", async (req, res) => {
     const { userId, recipeId } = req.body;
 
     try {
