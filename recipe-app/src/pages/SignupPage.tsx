@@ -33,7 +33,7 @@ export const SignupPage = () => {
 
     return (
         <AuthLayout>
-            <div className="bg-white flex w-6/12 rounded-md">
+            <div className="bg-white w-6/12 flex rounded-sm border-gray-200 border shadow-lg">
                 <div className="pt-8 px-8 pb-4 w-1/2">
                     <div className="flex justify-center gap-4 mb-16">
                         <NavLink

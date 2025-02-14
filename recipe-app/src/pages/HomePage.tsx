@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router";
 import { Header } from "../components/Header";
 import { Hero } from "../components/Hero";
+import { HeroTwo } from "../components/HeroTwo";
 
 export const HomePage = () => {
     const [cookies, setCookies] = useCookies(["access_token"]);
@@ -21,8 +22,8 @@ export const HomePage = () => {
     return (
         <>
             <Header />
-            <div className="w-9/12 mx-auto p-4 bg-gray-200">
-            <Hero />
+            <div className="w-9/12 mx-auto p-4 bg-[#1C1C1C]">
+            <HeroTwo />
                 <h1>Home Page</h1>
                 {cookies.access_token && (
                     <button
