@@ -5,7 +5,7 @@ import NoImage from "../assets/images/no-img.jpg";
 export const Header = () => {
     return (
         <>
-            <div className="flex items-center justify-between py-4 px-8 sticky top-0 z-1000 bg-[#2E2E2E] text-[#D4AF37] shadow-md">
+            <div className="flex items-center justify-between py-4 px-8 sticky top-0 z-1000 bg-[#FDF8F2] text-[#4A4A4A] shadow-md">
                 <div className="flex items-center gap-1">
                     <img
                         src={NoImage}
@@ -29,7 +29,7 @@ export const Header = () => {
                         Home
                     </NavLink>
                     <NavLink
-                        to="/"
+                        to="/my-recipes"
                         className="border py-2 px-4 hover:bg-gray-200 hover:cursor-pointer"
                     >
                         My Recipes
@@ -38,7 +38,7 @@ export const Header = () => {
                         to="/"
                         className="border py-2 px-4 hover:bg-gray-200 hover:cursor-pointer"
                     >
-                        Saved Recipes
+                        Saved Public Recipes
                     </NavLink>
                 </div>
                 <div className="flex items-center gap-2">

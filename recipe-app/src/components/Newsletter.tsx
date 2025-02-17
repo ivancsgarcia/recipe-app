@@ -1,7 +1,7 @@
 export const Newsletter = () => {
     return (
         <>
-            <div className="bg-[#2E2E2E] py-16 sm:py-24 lg:py-32">
+            <div className="bg-[#A8B86C] text-[#F7E7CE] py-16 sm:py-24 lg:py-32">
                 <div className="flex items-center px-6 lg:px-8">
                     <div className="pr-24 w-[40%]">
                         <h1 className="text-3xl mb-4">

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -18,4 +18,4 @@ const userSchema = new mongoose.Schema({
     savedRecipes: [{ type: mongoose.Schema.Types.ObjectId, ref: "recipes" }],
 });
 
-export const UserModel = mongoose.model("users", userSchema);
+export const UserModel = mongoose.model("users", UserSchema);

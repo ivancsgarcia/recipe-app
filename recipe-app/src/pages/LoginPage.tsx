@@ -48,8 +48,10 @@ export const LoginPage = () => {
     return (
         <>
             <AuthLayout>
-                <div className="bg-white w-6/12 flex rounded-sm border-gray-200 border shadow-lg">
-                    <div className="pt-8 px-8 pb-4 w-1/2">
+                <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg lg:max-w-4xl">
+                    <div className="hidden bg-cover lg:block lg:w-1/2 bg-[url(https://images.unsplash.com/photo-1606660265514-358ebbadc80d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80)]"></div>
+
+                    <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
                         <div className="flex justify-center gap-4 mb-16">
                             <NavLink
                                 to="/signup"
@@ -135,7 +137,6 @@ export const LoginPage = () => {
                         </form>
                         <p>{message}</p>
                     </div>
-                    <div className="w-1/2">image</div>
                 </div>
             </AuthLayout>
         </>

@@ -1,4 +1,5 @@
 import express from "express";
+import mongoose from "mongoose";
 import { RecipeModel } from "../models/Recipes.js";
 import { UserModel } from "../models/Users.js";
 
@@ -9,17 +10,17 @@ router.get("/", async (req, res) => {
         const response = await RecipeModel.find({});
         res.json(response);
     } catch (error) {
-        res.json(err);
+        res.json(error);
     }
 });
 
 router.post("/", async (req, res) => {
-    const newRecipe = new RecipeModel(req.body);
+    const recipe = new RecipeModel(req.body);
     try {
-        const response = await newRecipe.save();
+        const response = await recipe.save();
         res.json(response);
     } catch (error) {
-        res.json(err);
+        res.json(error);
     }
 });
 
@@ -33,7 +34,7 @@ router.put("/", async (req, res) => {
         await user.save();
         res.json({ savedRecipes: user.savedRecipes });
     } catch (error) {
-        res.json(err);
+        res.json(error);
     }
 });
 
@@ -43,7 +44,7 @@ router.get("/savedRecipes/ids", async (req, res) => {
         const user = await UserModel.findById(userId);
         req.json({ savedRecipes: user?.savedRecipes });
     } catch (error) {
-        res.json(err);
+        res.json(error);
     }
 });
 
@@ -56,7 +57,7 @@ router.get("/savedRecipes", async (req, res) => {
         });
         req.json({ savedRecipes });
     } catch (error) {
-        res.json(err);
+        res.json(error);
     }
 });
 

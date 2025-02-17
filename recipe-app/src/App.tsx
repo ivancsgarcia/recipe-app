@@ -7,7 +7,7 @@ import { HomePage } from "./pages/HomePage";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { Slide, ToastContainer } from "react-toastify";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage";
-import { CreateRecipePage } from "./pages/CreateRecipePage";
+import { MyRecipesPage } from "./pages/MyRecipesPage";
 
 function App() {
     return (
@@ -26,7 +26,7 @@ function App() {
                         element={<ResetPasswordPage />}
                     />
                     <Route path="/home" element={<HomePage />} />
-                    <Route path="/recipe/create" element={<CreateRecipePage />} />
+                    <Route path="/my-recipes" element={<MyRecipesPage />} />
                 </Routes>
             </BrowserRouter>
             <ToastContainer

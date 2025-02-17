@@ -9,11 +9,11 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
 }) => {
     return (
         <>
-            <div className="p-3">
+            <div className="">
                 <img
                     src={imageUrl}
                     alt="breakfast-img"
-                    className="w-24 h-24 mx-auto mb-2 border rounded-full"
+                    className="w-24 h-24 mx-auto mb-2 border rounded-full "
                 />
                 <p className="text-center">{name}</p>
             </div>
