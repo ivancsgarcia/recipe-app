@@ -8,6 +8,8 @@ import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { Slide, ToastContainer } from "react-toastify";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import { MyRecipesPage } from "./pages/MyRecipesPage";
+import { PageNotFound } from "./pages/PageNotFound";
+import { RecipeDetailsPage } from "./pages/RecipeDetailsPage";
 
 function App() {
     return (
@@ -27,6 +29,8 @@ function App() {
                     />
                     <Route path="/home" element={<HomePage />} />
                     <Route path="/my-recipes" element={<MyRecipesPage />} />
+                    <Route path="/recipes/:id" element={<RecipeDetailsPage />} />
+                    <Route path="*" element={<PageNotFound />} />
                 </Routes>
             </BrowserRouter>
             <ToastContainer

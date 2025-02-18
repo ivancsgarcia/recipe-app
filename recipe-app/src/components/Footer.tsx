@@ -2,78 +2,42 @@ import {
     FaFacebook,
     FaInstagram,
     FaXTwitter,
-    FaGithub,
-    FaDribbble,
+    FaYoutube,
 } from "react-icons/fa6";
+import { NavLink } from "react-router";
 
 export const Footer = () => {
     return (
         <>
-            <section
-                className="
-        "
-            >
-                <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
-                    <nav className="flex flex-wrap justify-center -mx-5 -my-2">
-                        <div className="px-5 py-2">
-                            <a href="#" className=" leading-6  ">
-                                Home
-                            </a>
-                        </div>
-                        <div className="px-5 py-2">
-                            <a href="#" className=" leading-6  ">
-                                About
-                            </a>
-                        </div>
-                        <div className="px-5 py-2">
-                            <a href="#" className=" leading-6  ">
-                                All Recipes
-                            </a>
-                        </div>
-                        <div className="px-5 py-2">
-                            <a href="#" className=" leading-6  ">
-                                My Recipes
-                            </a>
-                        </div>
-                        <div className="px-5 py-2">
-                            <a href="#" className=" leading-6  ">
-                                Saved Recipes
-                            </a>
-                        </div>
-                        <div className="px-5 py-2">
-                            <a href="#" className=" leading-6  ">
-                                Profile
-                            </a>
-                        </div>
-                    </nav>
-                    <div className="flex justify-center mt-8 space-x-6">
-                        <a href="#" className="">
-                            <span className="sr-only">Facebook</span>
-                            <FaFacebook />
-                        </a>
-                        <a href="#" className="">
-                            <span className="sr-only">Instagram</span>
-                            <FaInstagram />
-                        </a>
-                        <a href="#" className="">
-                            <span className="sr-only">Twitter</span>
-                            <FaXTwitter />
-                        </a>
-                        <a href="#" className="">
-                            <span className="sr-only">GitHub</span>
-                            <FaGithub />
-                        </a>
-                        <a href="#" className="">
-                            <span className="sr-only">Dribbble</span>
-                            <FaDribbble />
-                        </a>
+            <div className="bg-gray-200 p-4">
+                <div className="flex flex-wrap justify-center gap-4">
+                    <NavLink to="/home">Home</NavLink>
+                    <NavLink to="/about">About</NavLink>
+                    <NavLink to="/my-recipes">My Recipes</NavLink>
+                    <NavLink to="/saved-recipes">Saved Recipes</NavLink>
+                    <NavLink to="/profile">Profile</NavLink>
+                </div>
+                <div className="flex flex-wrap justify-center items-center gap-4 my-4">
+                    <div>
+                        <FaFacebook />
                     </div>
-                    <p className="mt-8  leading-6 text-center ">
-                        © {new Date().getFullYear()} Spoonfed, Inc. All rights
+                    <div>
+                        <FaInstagram />
+                    </div>
+                    <div>
+                        <FaXTwitter />
+                    </div>
+                    <div>
+                        <FaYoutube />
+                    </div>
+                </div>
+                <div>
+                    <p className="text-center">
+                        {new Date().getFullYear()} Spoonfed, All rights
                         reserved.
                     </p>
                 </div>
-            </section>
+            </div>
         </>
     );
 };

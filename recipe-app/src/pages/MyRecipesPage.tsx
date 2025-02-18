@@ -3,11 +3,25 @@ import { Header } from "../components/Header";
 import { RecipeCard } from "../components/RecipeCard";
 import axios from "axios";
 import { useGetUserId } from "../hooks/useGetUserId";
+import { NavLink } from "react-router";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+
+interface Recipe {
+    _id: string;
+    name: string;
+    description: string;
+    ingredients: string[];
+    instructions: string[];
+    imageUrl: string;
+    cookingTime: number;
+    userOwner: string | null;
+}
 
 export const MyRecipesPage = () => {
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [recipes, setRecipes] = useState<Recipe[]>([
         {
+            _id: "",
             name: "",
             description: "",
             ingredients: [],
@@ -32,7 +46,7 @@ export const MyRecipesPage = () => {
         };
 
         getCreatedRecipes();
-    }, []);
+    }, [recipes]);
     return (
         <>
             {/* Header */}
@@ -49,24 +63,41 @@ export const MyRecipesPage = () => {
 
                 {/* Content */}
                 <div className="container mx-auto min-h-screen p-4 border-x border-b">
-                    <div className="flex flex-col md:flex-row md:justify-between">
-                        <h1 className="text-3xl">My Recipe</h1>
+                    <div className="flex flex-col items-center gap-4 mb-4 md:flex-row md:justify-between">
+                        <h1 className="text-xl md:text-2xl lg:text-3xl">
+                            My Recipe
+                        </h1>
                         <button
                             onClick={() => {
                                 setIsOpenModal(!isOpenModal);
                             }}
-                            className="border rounded-md"
+                            className="border rounded-md px-8 py-4"
                         >
                             Create New Recipe
                         </button>
                     </div>
+
+                    {/* Search Bar */}
+                    <div className="my-8">
+                        <div className="flex w-full md:w-[50%] mx-auto border rounded-md">
+                            <input type="text" className="w-full focus:outline-none px-4" />
+                            <div className="w-[1px] bg-black"></div>
+                            <div className="flex justify-center items-center p-3">
+                                <FaMagnifyingGlass />
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Recipe Cards */}
-                    <div className="flex flex-wrap gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-fr">
                         {recipes.map((recipe) => (
-                            <RecipeCard
-                                RecipeName={recipe.name}
-                                imageUrl={recipe.imageUrl}
-                            />
+                            <NavLink to={`/recipes/${recipe._id}`}>
+                                <RecipeCard
+                                    recipeName={recipe.name}
+                                    imageUrl={recipe.imageUrl}
+                                    recipeDescription={recipe.description}
+                                />
+                            </NavLink>
                         ))}
                     </div>
                 </div>
@@ -80,7 +111,7 @@ interface CreateRecipeModalProps {
     setIsOpenModal: (isOpenModal: boolean) => void;
 }
 
-interface Recipe {
+interface CreateRecipeModal {
     name: string;
     description: string;
     ingredients: string[];
@@ -95,7 +126,7 @@ const CreateRecipeModal = ({
     setIsOpenModal,
 }: CreateRecipeModalProps) => {
     const userId = useGetUserId();
-    const [recipe, setRecipe] = useState<Recipe>({
+    const [recipe, setRecipe] = useState<CreateRecipeModal>({
         name: "",
         description: "",
         ingredients: [],

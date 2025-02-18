@@ -2,28 +2,24 @@ import { FaRegHeart, FaHeart } from "react-icons/fa6";
 
 export const RecipeCard = ({
     imageUrl,
-    RecipeName,
+    recipeName,
+    recipeDescription,
 }: {
     imageUrl: string;
-    RecipeName: string;
+    recipeName: string;
+    recipeDescription: string;
 }) => {
     return (
         <>
-            <div className="relative flex flex-col my-6 bg-[#FCFCFC] border border-[#D4B99F] shadow-sm rounded-lg w-96">
-                <div className="relative p-2.5 h-96 overflow-hidden rounded-xl bg-clip-border">
-                    <img
-                        src={imageUrl}
-                        alt="recipe-image"
-                        className="h-full w-full bg-center object-cover rounded-md"
-                    />
-                    <div className="absolute right-0 top-0 m-4 flex items-center justify-self-center text-white border rounded-full p-2">
-                        <FaRegHeart size={28} className="" />
-                    </div>
-                </div>
-                <div className="p-2">
-                    <p className="text-slate-800 text-xl font-semibold">
-                        {RecipeName}
-                    </p>
+            <div className="border rounded-md p-2 flex flex-col h-full">
+                <img
+                    src={imageUrl}
+                    alt="recipe-image"
+                    className="object-cover rounded-sm"
+                />
+                <div className="flex flex-col">
+                    <p className="font-bold mt-4">{recipeName}</p>
+                    <p className="line-clamp-2">{recipeDescription}</p>
                 </div>
             </div>
         </>
