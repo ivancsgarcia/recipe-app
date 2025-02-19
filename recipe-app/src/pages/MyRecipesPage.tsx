@@ -49,10 +49,10 @@ export const MyRecipesPage = () => {
     }, [recipes]);
     return (
         <>
-            {/* Header */}
-            <Header />
-
             <div className="relative">
+                {/* Header */}
+                <Header />
+
                 {/* Modal */}
                 {isOpenModal && (
                     <CreateRecipeModal
@@ -80,7 +80,10 @@ export const MyRecipesPage = () => {
                     {/* Search Bar */}
                     <div className="my-8">
                         <div className="flex w-full md:w-[50%] mx-auto border rounded-md">
-                            <input type="text" className="w-full focus:outline-none px-4" />
+                            <input
+                                type="text"
+                                className="w-full focus:outline-none px-4"
+                            />
                             <div className="w-[1px] bg-black"></div>
                             <div className="flex justify-center items-center p-3">
                                 <FaMagnifyingGlass />
@@ -185,30 +188,40 @@ const CreateRecipeModal = ({
 
     return (
         <>
-            <div className="absolute top-0 left-0 flex justify-center items-center w-full h-screen bg-black overflow-hidden bg-opacity-50">
-                <div className="sm:w-sm md:w-md lg:w-lg bg-white p-4 rounded-md">
-                    <h1 className="text-3xl">Create New Recipe</h1>
+            <div
+                onClick={() => {
+                    setIsOpenModal(!isOpenModal);
+                }}
+                className="fixed inset-0 min-h-auto w-full flex justify-center items-center bg-black/50"
+            >
+                <div
+                    onClick={(e) => {
+                        e.stopPropagation();
+                    }}
+                    className="bg-white p-4 rounded-md lg:w-lg w-full min-h-auto overflow-auto"
+                >
+                    <h1 className="text-3xl mb-4">Create New Recipe</h1>
                     <form onSubmit={onSubmit}>
-                        <div className="flex flex-col">
+                        <div className="flex flex-col mb-4">
                             <label htmlFor="">Name</label>
                             <input
                                 type="text"
                                 name="name"
                                 onChange={handleChange}
-                                className="border"
+                                className="border rounded p-2"
                             />
                         </div>
 
-                        <div className="flex flex-col">
+                        <div className="flex flex-col mb-4">
                             <label htmlFor="">Description</label>
                             <textarea
                                 name="description"
                                 onChange={handleChange}
-                                className="border"
+                                className="border rounded p-2"
                             ></textarea>
                         </div>
 
-                        <div className="flex flex-col">
+                        <div className="flex flex-col mb-4">
                             <label htmlFor="">Ingredients</label>
                             {recipe.ingredients.map((ingredient, index) => (
                                 <input
@@ -219,19 +232,19 @@ const CreateRecipeModal = ({
                                     onChange={(e) =>
                                         handleIngredientChange(e, index)
                                     }
-                                    className="border"
+                                    className="border mb-2 rounded p-2"
                                 />
                             ))}
                             <button
                                 type="button"
                                 onClick={addIngredient}
-                                className="border"
+                                className="border rounded p-2"
                             >
                                 Add Ingredient
                             </button>
                         </div>
 
-                        <div className="flex flex-col">
+                        <div className="flex flex-col mb-4">
                             <label htmlFor="">Instructions</label>
 
                             {recipe.instructions.map((instruction, index) => (
@@ -242,40 +255,43 @@ const CreateRecipeModal = ({
                                     onChange={(e) =>
                                         handleInstructionChange(e, index)
                                     }
-                                    className="border"
+                                    className="border mb-2 rounded p-2"
                                 ></textarea>
                             ))}
                             <button
                                 type="button"
                                 onClick={addInstruction}
-                                className="border"
+                                className="border p-2 rounded"
                             >
                                 Add Ingredient
                             </button>
                         </div>
 
-                        <div className="flex flex-col">
+                        <div className="flex flex-col mb-4">
                             <label htmlFor="">Image URL</label>
                             <input
                                 type="text"
                                 name="imageUrl"
                                 onChange={handleChange}
-                                className="border"
+                                className="border rounded p-2"
                             />
                         </div>
 
-                        <div className="flex flex-col">
+                        <div className="flex flex-col mb-4">
                             <label htmlFor="">Cooking Time (minutes)</label>
                             <input
                                 type="number"
                                 name="cookingTime"
                                 onChange={handleChange}
-                                className="border"
+                                className="border rounded p-2"
                             />
                         </div>
 
-                        <div className="flex justify-center gap-4">
-                            <button type="submit" className="border">
+                        <div className="flex justify-center items-center gap-4">
+                            <button
+                                type="submit"
+                                className="border px-4 py-2 rounded"
+                            >
                                 Create Recipe
                             </button>
                             <button
@@ -283,7 +299,7 @@ const CreateRecipeModal = ({
                                 onClick={() => {
                                     setIsOpenModal(!isOpenModal);
                                 }}
-                                className="border"
+                                className="border px-4 py-2 rounded"
                             >
                                 Cancel
                             </button>

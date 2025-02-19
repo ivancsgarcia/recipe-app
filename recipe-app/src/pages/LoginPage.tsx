@@ -3,7 +3,6 @@ import { FaGoogle, FaEnvelope, FaLock } from "react-icons/fa6";
 import { NavLink, useNavigate } from "react-router";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { AuthLayout } from "../layouts/AuthLayout";
 import { Slide, toast } from "react-toastify";
 
 export const LoginPage = () => {
@@ -23,9 +22,11 @@ export const LoginPage = () => {
                     password,
                 }
             );
+            const data = response.data;
+            console.log(data);
 
-            setCookies("access_token", response.data.token);
-            window.localStorage.setItem("userId", response.data.userId);
+            setCookies("access_token", data.token);
+            window.localStorage.setItem("userId", data.userId);
             toast("User logged in successfully", {
                 position: "top-right",
                 autoClose: 2000,
@@ -47,9 +48,9 @@ export const LoginPage = () => {
 
     return (
         <>
-            <AuthLayout>
+            <div className="container h-screen mx-auto flex justify-center items-center">
                 <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg lg:max-w-4xl">
-                    <div className="hidden bg-cover lg:block lg:w-1/2 bg-[url(https://images.unsplash.com/photo-1606660265514-358ebbadc80d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80)]"></div>
+                    <div className="hidden bg-cover lg:block lg:w-1/2 bg-[url(assets/images/auth-image-2.jpeg)]"></div>
 
                     <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
                         <div className="flex justify-center gap-4 mb-16">
@@ -138,7 +139,7 @@ export const LoginPage = () => {
                         <p>{message}</p>
                     </div>
                 </div>
-            </AuthLayout>
+            </div>
         </>
     );
 };
