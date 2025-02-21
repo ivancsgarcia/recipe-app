@@ -5,6 +5,8 @@ import axios from "axios";
 import { useGetUserId } from "../hooks/useGetUserId";
 import { NavLink } from "react-router";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { useCookies } from "react-cookie";
+import { Footer } from "../components/Footer";
 
 interface Recipe {
     _id: string;
@@ -18,6 +20,7 @@ interface Recipe {
 }
 
 export const MyRecipesPage = () => {
+    const [cookies] = useCookies(["access_token"]);
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [recipes, setRecipes] = useState<Recipe[]>([
         {
@@ -36,7 +39,8 @@ export const MyRecipesPage = () => {
         const getCreatedRecipes = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:3001/recipes"
+                    "http://localhost:3001/recipes",
+                    { headers: { authorization: cookies.access_token } }
                 );
                 const data = response.data;
                 setRecipes(data);
@@ -46,10 +50,10 @@ export const MyRecipesPage = () => {
         };
 
         getCreatedRecipes();
-    }, [recipes]);
+    }, []);
     return (
         <>
-            <div className="relative">
+            <div className="container mx-auto">
                 {/* Header */}
                 <Header />
 
@@ -62,7 +66,7 @@ export const MyRecipesPage = () => {
                 )}
 
                 {/* Content */}
-                <div className="container mx-auto min-h-screen p-4 border-x border-b">
+                <div className="container mx-auto min-h-screen">
                     <div className="flex flex-col items-center gap-4 mb-4 md:flex-row md:justify-between">
                         <h1 className="text-xl md:text-2xl lg:text-3xl">
                             My Recipe
@@ -103,7 +107,9 @@ export const MyRecipesPage = () => {
                             </NavLink>
                         ))}
                     </div>
+                    <Footer />
                 </div>
+               
             </div>
         </>
     );
@@ -129,6 +135,7 @@ const CreateRecipeModal = ({
     setIsOpenModal,
 }: CreateRecipeModalProps) => {
     const userId = useGetUserId();
+    const [cookies] = useCookies(["access_token"]);
     const [recipe, setRecipe] = useState<CreateRecipeModal>({
         name: "",
         description: "",
@@ -178,7 +185,9 @@ const CreateRecipeModal = ({
         e.preventDefault();
 
         try {
-            await axios.post("http://localhost:3001/recipes", recipe);
+            await axios.post("http://localhost:3001/recipes", recipe, {
+                headers: { authorization: cookies.access_token },
+            });
             alert("Recipe created successfully");
             setIsOpenModal(!isOpenModal);
         } catch (error) {

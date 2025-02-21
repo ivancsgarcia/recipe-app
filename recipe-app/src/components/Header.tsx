@@ -1,14 +1,15 @@
-import { FaCaretDown } from "react-icons/fa6";
+import { FaCaretDown, FaBars } from "react-icons/fa6";
 import { NavLink, useNavigate } from "react-router";
-import NoImage from "../assets/images/no-img.jpg";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
+import { ProfileModal } from "./ProfileModal";
 
 export const Header = () => {
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState<boolean>(false);
     const [isNavMenuOpen, setIsNavMenuOpen] = useState<boolean>(false);
     const [cookies, setCookies] = useCookies(["access_token"]);
-    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+    const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -18,212 +19,154 @@ export const Header = () => {
     };
     return (
         <>
-            <nav className="bg-gray-800">
-                <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-                    <div className="relative flex h-16 items-center justify-between">
-                        <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setIsNavMenuOpen(!isNavMenuOpen);
-                                }}
-                                className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset"
-                                aria-controls="mobile-menu"
-                                aria-expanded="false"
-                            >
-                                <span className="absolute -inset-0.5"></span>
-                                <span className="sr-only">Open main menu</span>
-
-                                <svg
+            <header className=" py-5 px-3 bg-white flex justify-between items-center">
+                <div className="relative md:hidden block">
+                    <FaBars
+                        type="button"
+                        onClick={() => {
+                            setIsNavMenuOpen(!isNavMenuOpen);
+                        }}
+                    />
+                    {isNavMenuOpen && (
+                        <div
+                            onClick={() => {
+                                isNavMenuOpen && setIsNavMenuOpen(false);
+                                isProfileMenuOpen &&
+                                    setIsProfileMenuOpen(false);
+                            }}
+                            className="fixed h-full w-full top-0 left-0 bg-transparent z-10"
+                        >
+                            <div className="absolute left-0 mt-20 bg-white border rounded w-40 z-10">
+                                <NavLink
+                                    to={"/home"}
                                     className={
-                                        "size-6 " +
-                                        (isNavMenuOpen ? "hidden" : "block")
+                                        "block hover:bg-gray-200 py-2 px-4"
                                     }
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                    data-slot="icon"
                                 >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                                    />
-                                </svg>
-
-                                <svg
+                                    Home
+                                </NavLink>
+                                <NavLink
+                                    to={"/about"}
                                     className={
-                                        "size-6 " +
-                                        (isNavMenuOpen ? "block" : "hidden")
+                                        "block hover:bg-gray-200 py-2 px-4"
                                     }
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                    data-slot="icon"
                                 >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M6 18 18 6M6 6l12 12"
-                                    />
-                                </svg>
-
-                                {/* Icon when menu is open.
-
-                                Menu open: "block", Menu closed: "hidden" */}
-                            </button>
-                        </div>
-                        <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                            <div className="flex shrink-0 items-center">
-                                <img
-                                    className="h-8 w-auto"
-                                    src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                                    alt="Your Company"
-                                />
-                            </div>
-                            <div className="hidden sm:ml-6 sm:block">
-                                <div className="flex space-x-4">
-                                    <NavLink
-                                        to="/home"
-                                        className="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
-                                        aria-current="page"
-                                    >
-                                        Home
-                                    </NavLink>
-                                    <NavLink
-                                        to="/my-recipes"
-                                        className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                                    >
-                                        My Recipes
-                                    </NavLink>
-                                    <NavLink
-                                        to="#"
-                                        className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                                    >
-                                        Saved Recipes
-                                    </NavLink>
-                                </div>
+                                    About
+                                </NavLink>
+                                <NavLink
+                                    to={"/my-recipes"}
+                                    className={
+                                        "block hover:bg-gray-200 py-2 px-4"
+                                    }
+                                >
+                                    My Recipe
+                                </NavLink>
+                                <NavLink
+                                    to={"/saved-recipes"}
+                                    className={
+                                        "block hover:bg-gray-200 py-2 px-4"
+                                    }
+                                >
+                                    Saved Recipe
+                                </NavLink>
                             </div>
                         </div>
+                    )}
+                </div>
 
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                            {/* Profile dropdown */}
-                            <div className="relative ml-3">
-                                <div className="flex items-center gap-2">
+                <div className="space-x-4">
+                    <img
+                        src={"images/no-img.jpg"}
+                        alt="logo"
+                        className="size-12 inline"
+                    />
+                    <h1 className="inline">Spoonfed</h1>
+                </div>
+
+                <div className="md:space-x-4 md:block hidden">
+                    <NavLink
+                        to={"/home"}
+                        className={"hover:bg-gray-200 px-4 py-2"}
+                    >
+                        Home
+                    </NavLink>
+                    <NavLink
+                        to={"/about"}
+                        className={"hover:bg-gray-200 px-4 py-2"}
+                    >
+                        About
+                    </NavLink>
+                    <NavLink
+                        to={"/my-recipes"}
+                        className={"hover:bg-gray-200 px-4 py-2"}
+                    >
+                        My Recipe
+                    </NavLink>
+                    <NavLink
+                        to={"/saved-recipes"}
+                        className={"hover:bg-gray-200 px-4 py-2"}
+                    >
+                        Saved Recipe
+                    </NavLink>
+                </div>
+
+                <div className="relative">
+                    <div
+                        onClick={() => {
+                            setIsProfileMenuOpen(!isProfileMenuOpen);
+                        }}
+                        className="space-x-1 flex items-center"
+                    >
+                        <img
+                            src={"images/no-img.jpg"}
+                            alt=""
+                            className="size-12 border rounded-full inline"
+                        />
+                        <FaCaretDown role="button" className="inline" />
+                    </div>
+                    {isProfileMenuOpen && (
+                        <div
+                            onClick={() => {
+                                isNavMenuOpen && setIsNavMenuOpen(false);
+                                isProfileMenuOpen &&
+                                    setIsProfileMenuOpen(false);
+                            }}
+                            className="fixed h-full w-full top-0 right-0 bg-transparent z-10"
+                        >
+                            <div className="absolute right-0 mt-20 bg-white border rounded w-40 z-10">
+                                <button
+                                    onClick={() => {
+                                        setIsProfileModalOpen(
+                                            !isProfileModalOpen
+                                        );
+                                    }}
+                                    className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                                >
+                                    Profile
+                                </button>
+                                {cookies.access_token && (
                                     <button
-                                        type="button"
                                         onClick={() => {
-                                            setIsProfileMenuOpen(
-                                                !isProfileMenuOpen
+                                            setIsLogoutModalOpen(
+                                                !isLogoutModalOpen
                                             );
                                         }}
-                                        className="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
-                                        id="user-menu-button"
-                                        aria-expanded="false"
-                                        aria-haspopup="true"
+                                        className="block w-full text-left px-4 py-2 hover:bg-gray-200"
                                     >
-                                        <span className="absolute -inset-1.5"></span>
-                                        <span className="sr-only">
-                                            Open user menu
-                                        </span>
-                                        <img
-                                            className="size-8 rounded-full"
-                                            src={NoImage}
-                                            alt="avatar-image"
-                                        />
+                                        Logout
                                     </button>
-                                    <FaCaretDown
-                                        type="button"
-                                        onClick={() => {
-                                            setIsProfileMenuOpen(
-                                                !isProfileMenuOpen
-                                            );
-                                        }}
-                                    />
-                                </div>
-                                {/* Dropdown menu, show/hide based on menu state.
-                                Entering: "transition ease-out duration-100"
-                                From: "transform opacity-0 scale-95" To:
-                                "transform opacity-100 scale-100" Leaving:
-                                "transition ease-in duration-75" From:
-                                "transform opacity-100 scale-100" To: "transform
-                                opacity-0 scale-95" */}
-                                {isProfileMenuOpen && (
-                                    <div
-                                        className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 shadow-lg ring-black/5 focus:outline-hidden"
-                                        role="menu"
-                                        aria-orientation="vertical"
-                                        aria-labelledby="user-menu-button"
-                                        tabIndex={-1}
-                                    >
-                                        {/* <!-- Active: "bg-gray-100 outline-hidden", Not Active: "" --> */}
-                                        <NavLink
-                                            to="#"
-                                            className="block px-4 py-2 text-sm text-gray-700"
-                                            role="menuitem"
-                                            tabIndex={-1}
-                                            id="user-menu-item-0"
-                                        >
-                                            Your Profile
-                                        </NavLink>
-                                        {cookies.access_token && (
-                                            <button
-                                                onClick={() => {
-                                                    setIsOpenModal(
-                                                        !isOpenModal
-                                                    );
-                                                }}
-                                                className="block px-4 py-2 text-sm text-gray-700"
-                                                role="menuitem"
-                                                tabIndex={-1}
-                                                id="user-menu-item-2"
-                                            >
-                                                Sign out
-                                            </button>
-                                        )}
-                                    </div>
                                 )}
                             </div>
                         </div>
-                    </div>
+                    )}
                 </div>
+            </header>
 
-                {/*Mobile menu, show/hide based on menu state.*/}
-                {isNavMenuOpen && (
-                    <div className="sm:hidden" id="mobile-menu">
-                        <div className="space-y-1 px-2 pt-2 pb-3">
-                            {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
+            {/* Profile Modal */}
+            {isProfileModalOpen && <ProfileModal isProfileModalOpen={isProfileModalOpen} setIsProfileModalOpen={setIsProfileModalOpen} />}
 
-                            <NavLink
-                                to={"/home"}
-                                className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
-                                aria-current="page"
-                            >
-                                Home
-                            </NavLink>
-                            <NavLink
-                                to={"/my-recipes"}
-                                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                            >
-                                My Recipes
-                            </NavLink>
-                            <NavLink
-                                to={"*"}
-                                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                            >
-                                saved Recipes
-                            </NavLink>
-                        </div>
-                    </div>
-                )}
-            </nav>
-
-            {/* Dialog */}
-            {isOpenModal && (
+            {/* Logout Modal */}
+            {isLogoutModalOpen && (
                 <div
                     className="relative z-10"
                     aria-labelledby="modal-title"
@@ -285,7 +228,9 @@ export const Header = () => {
                                     <button
                                         type="button"
                                         onClick={() => {
-                                            setIsOpenModal(!isOpenModal);
+                                            setIsLogoutModalOpen(
+                                                !isLogoutModalOpen
+                                            );
                                         }}
                                         className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"
                                     >

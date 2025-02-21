@@ -13,7 +13,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
                 <img
                     src={imageUrl}
                     alt="breakfast-img"
-                    className="w-24 h-24 mx-auto mb-2 border rounded-full "
+                    className="size-50 mx-auto mb-2 border bg-cover"
                 />
                 <p className="text-center">{name}</p>
             </div>

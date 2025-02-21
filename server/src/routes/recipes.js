@@ -2,17 +2,24 @@ import express from "express";
 import mongoose from "mongoose";
 import { RecipeModel } from "../models/recipeModel.js";
 import { UserModel } from "../models/userModel.js";
-import { createRecipe, getRecipeById, getRecipes, idunno, idunnodin } from "../controllers/recipeController.js";
+import {
+    createRecipe,
+    getRecipeById,
+    getRecipes,
+    idunno,
+    idunnodin,
+    verifyToken,
+} from "../controllers/recipeController.js";
 
 const router = express.Router();
 
-router.get("/", getRecipes);
+router.get("/", verifyToken, getRecipes);
 
-router.get("/:id", getRecipeById);
+router.get("/:id", verifyToken, getRecipeById);
 
-router.post("/", createRecipe);
+router.post("/", verifyToken, createRecipe);
 
-router.put("/", async (req, res) => {
+router.put("/", verifyToken, async (req, res) => {
     const { userId, recipeId } = req.body;
 
     try {
@@ -26,8 +33,8 @@ router.put("/", async (req, res) => {
     }
 });
 
-router.get("/savedRecipes/ids", idunno);
+router.get("/savedRecipes/ids", verifyToken, idunno);
 
-router.get("/savedRecipes", idunnodin);
+router.get("/savedRecipes", verifyToken, idunnodin);
 
 export { router as recipesRouter };

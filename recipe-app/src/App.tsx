@@ -10,6 +10,8 @@ import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import { MyRecipesPage } from "./pages/MyRecipesPage";
 import { PageNotFound } from "./pages/PageNotFound";
 import { RecipeDetailsPage } from "./pages/RecipeDetailsPage";
+import { SavedRecipePage } from "./pages/SavedRecipePage";
+import { AboutPage } from "./pages/AboutPage";
 
 function App() {
     return (
@@ -28,8 +30,13 @@ function App() {
                         element={<ResetPasswordPage />}
                     />
                     <Route path="/home" element={<HomePage />} />
+                    <Route path="/about" element={<AboutPage />} />
+                    <Route path="/saved-recipes" element={<SavedRecipePage />} />
                     <Route path="/my-recipes" element={<MyRecipesPage />} />
-                    <Route path="/recipes/:id" element={<RecipeDetailsPage />} />
+                    <Route
+                        path="/recipes/:id"
+                        element={<RecipeDetailsPage />}
+                    />
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
             </BrowserRouter>

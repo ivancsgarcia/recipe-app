@@ -48,9 +48,9 @@ export const LoginPage = () => {
 
     return (
         <>
-            <div className="container h-screen mx-auto flex justify-center items-center">
-                <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg lg:max-w-4xl">
-                    <div className="hidden bg-cover lg:block lg:w-1/2 bg-[url(assets/images/auth-image-2.jpeg)]"></div>
+            <div className="w-full h-screen flex justify-center items-center">
+                <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white border border-gray-200 rounded-lg shadow-lg lg:max-w-4xl">
+                    <div className="hidden bg-cover lg:block lg:w-1/2 bg-[url(images/auth-images/auth-image-2.jpeg)]"></div>
 
                     <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
                         <div className="flex justify-center gap-4 mb-16">
