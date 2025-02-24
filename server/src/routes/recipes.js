@@ -5,9 +5,8 @@ import { UserModel } from "../models/userModel.js";
 import {
     createRecipe,
     getRecipeById,
+    getUserRecipes,
     getRecipes,
-    idunno,
-    idunnodin,
     verifyToken,
 } from "../controllers/recipeController.js";
 
@@ -16,6 +15,8 @@ const router = express.Router();
 router.get("/", verifyToken, getRecipes);
 
 router.get("/:id", verifyToken, getRecipeById);
+
+router.get("/user-recipes", verifyToken, getUserRecipes)
 
 router.post("/", verifyToken, createRecipe);
 
@@ -32,9 +33,5 @@ router.put("/", verifyToken, async (req, res) => {
         res.json(error);
     }
 });
-
-router.get("/savedRecipes/ids", verifyToken, idunno);
-
-router.get("/savedRecipes", verifyToken, idunnodin);
 
 export { router as recipesRouter };

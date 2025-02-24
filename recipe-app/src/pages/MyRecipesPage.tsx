@@ -22,6 +22,7 @@ interface Recipe {
 export const MyRecipesPage = () => {
     const [cookies] = useCookies(["access_token"]);
     const [isOpenModal, setIsOpenModal] = useState(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const [recipes, setRecipes] = useState<Recipe[]>([
         {
             _id: "",
@@ -39,7 +40,7 @@ export const MyRecipesPage = () => {
         const getCreatedRecipes = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:3001/recipes",
+                    "http://localhost:3001/recipes/user-recipes",
                     { headers: { authorization: cookies.access_token } }
                 );
                 const data = response.data;
@@ -96,20 +97,23 @@ export const MyRecipesPage = () => {
                     </div>
 
                     {/* Recipe Cards */}
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-fr">
-                        {recipes.map((recipe) => (
-                            <NavLink to={`/recipes/${recipe._id}`}>
-                                <RecipeCard
-                                    recipeName={recipe.name}
-                                    imageUrl={recipe.imageUrl}
-                                    recipeDescription={recipe.description}
-                                />
-                            </NavLink>
-                        ))}
-                    </div>
+                    {!loading ? (
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-fr">
+                            {recipes.map((recipe) => (
+                                <NavLink to={`/recipes/${recipe._id}`}>
+                                    <RecipeCard
+                                        recipeName={recipe.name}
+                                        imageUrl={recipe.imageUrl}
+                                        recipeDescription={recipe.description}
+                                    />
+                                </NavLink>
+                            ))}
+                        </div>
+                    ) : (
+                        <>Loading</>
+                    )}
                     <Footer />
                 </div>
-               
             </div>
         </>
     );

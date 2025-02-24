@@ -1,5 +1,3 @@
-import { FaRegHeart, FaHeart } from "react-icons/fa6";
-
 export const RecipeCard = ({
     imageUrl,
     recipeName,

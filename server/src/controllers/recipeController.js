@@ -23,8 +23,19 @@ const getRecipeById = async (req, res) => {
     }
 };
 
+// get user's own recipe
+const getUserRecipes = async (req, res) => {
+    try {
+        const recipes = await RecipeModel.find({ userOwner: req.user.userId });
+        res.json(recipes);
+    } catch (error) {
+        res.json(error);
+    }
+};
+
 // create recipe
 const createRecipe = async (req, res) => {
+    console.log(req.user)
     const recipe = new RecipeModel(req.body);
     try {
         const response = await recipe.save();
@@ -35,47 +46,32 @@ const createRecipe = async (req, res) => {
 };
 
 // update recipe
-const updateRecipe = () => {};
+const updateRecipe = async (req, res) => {};
 
 // delete recipe
-const deleteRecipe = () => {};
-
-// idk
-const idunno = async (req, res) => {
-    const { userId } = req.body;
+const deleteRecipe = async (req, res) => {
     try {
-        const user = await UserModel.findById(userId);
-        req.json({ savedRecipes: user?.savedRecipes });
-    } catch (error) {
-        res.json(error);
-    }
-};
-
-// idk2
-const idunnodin = async (req, res) => {
-    const { userId } = req.body;
-    try {
-        const user = await UserModel.findById(userId);
-        const savedRecipes = await RecipeModel.find({
-            _id: { $in: user.savedRecipes },
+        const deletedRecipe = await RecipeModel.findOneAndDelete({
+            _id: req.params.id,
         });
-        req.json({ savedRecipes });
+        res.json(`${deletedRecipe.name} deleted successfully`);
     } catch (error) {
-        res.json(error);
+        res.json({ error });
     }
 };
 
 export const verifyToken = (req, res, next) => {
     const token = req.headers.authorization;
-    if (token) {
-        jwt.verify(token, process.env.JWT_SECRET, (err) => {
-            if (err) return res.sendStatus(403);
-        });
-        next();
-    } else {
+    if (!token) {
         res.sendStatus(401);
     }
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, verified) => {
+        if (err) return res.sendStatus(403);
+    });
+    req.user = verified;
+    next();
 };
 
 // export
-export { getRecipes, getRecipeById, createRecipe, idunno, idunnodin };
+export { getRecipes, getRecipeById, getUserRecipes, createRecipe };
