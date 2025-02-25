@@ -12,6 +12,7 @@ import { PageNotFound } from "./pages/PageNotFound";
 import { RecipeDetailsPage } from "./pages/RecipeDetailsPage";
 import { SavedRecipePage } from "./pages/SavedRecipePage";
 import { AboutPage } from "./pages/AboutPage";
+import { CreateRecipePage } from "./pages/CreateRecipePage";
 
 function App() {
     return (
@@ -31,12 +32,20 @@ function App() {
                     />
                     <Route path="/home" element={<HomePage />} />
                     <Route path="/about" element={<AboutPage />} />
-                    <Route path="/saved-recipes" element={<SavedRecipePage />} />
+                    <Route
+                        path="/saved-recipes"
+                        element={<SavedRecipePage />}
+                    />
                     <Route path="/my-recipes" element={<MyRecipesPage />} />
                     <Route
                         path="/recipes/:id"
                         element={<RecipeDetailsPage />}
                     />
+                    <Route
+                        path="/create-recipe"
+                        element={<CreateRecipePage />}
+                    />
+
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
             </BrowserRouter>

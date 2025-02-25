@@ -74,14 +74,14 @@ export const Header = () => {
                     )}
                 </div>
 
-                <div className="space-x-4">
+                <NavLink to={"/home"}>
                     <img
-                        src={"images/no-img.jpg"}
+                        src={"images/spoonfed-logo.jpg"}
                         alt="logo"
                         className="size-12 inline"
                     />
                     <h1 className="inline">Spoonfed</h1>
-                </div>
+                </NavLink>
 
                 <div className="md:space-x-4 md:block hidden">
                     <NavLink
@@ -163,7 +163,12 @@ export const Header = () => {
             </header>
 
             {/* Profile Modal */}
-            {isProfileModalOpen && <ProfileModal isProfileModalOpen={isProfileModalOpen} setIsProfileModalOpen={setIsProfileModalOpen} />}
+            {isProfileModalOpen && (
+                <ProfileModal
+                    isProfileModalOpen={isProfileModalOpen}
+                    setIsProfileModalOpen={setIsProfileModalOpen}
+                />
+            )}
 
             {/* Logout Modal */}
             {isLogoutModalOpen && (

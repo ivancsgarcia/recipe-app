@@ -1,9 +1,7 @@
-import { CategoryCard } from "./CategoryCard";
-
 export const CategorySection = () => {
     return (
         <>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-fr">
+            <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 px-4">
                 <CategoryCard
                     imageUrl={"images/category-images/main-course-img.jpg"}
                     name="Main Course"
@@ -60,6 +58,26 @@ export const CategorySection = () => {
                     imageUrl={"images/category-images/drink-img.jpg"}
                     name="Drink"
                 />
+            </div>
+        </>
+    );
+};
+
+interface CategoryCardProps {
+    imageUrl: string;
+    name: string;
+}
+
+const CategoryCard: React.FC<CategoryCardProps> = ({ imageUrl, name }) => {
+    return (
+        <>
+            <div>
+                <img
+                    src={imageUrl}
+                    alt={imageUrl}
+                    className="size-25 mx-auto mb-2 border bg-cover rounded-full hover:cursor-pointer"
+                />
+                <p className="text-center hover:cursor-pointer">{name}</p>
             </div>
         </>
     );

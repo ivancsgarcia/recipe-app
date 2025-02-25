@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 export const HeroTwo = () => {
     return (
         <>
-            <div className="bg-[url(images/hero-images/hero2-img.jpg)] bg-center bg-cover h-[400px] flex flex-col justify-center items-center">
+            <div className="bg-[url(images/hero-images/hero2-img.jpg)] bg-center bg-cover h-[400px] flex flex-col justify-center items-center mt-4">
                 <div className="bg-opacity-50 p-4 rounded">
                     <h1 className="text-center text-white text-4xl md:text-5xl lg:text-6xl">
                         Ready to Create Culinary Magic, Chef?

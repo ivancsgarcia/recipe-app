@@ -5,8 +5,11 @@ import jwt from "jsonwebtoken";
 // get all recipe
 const getRecipes = async (req, res) => {
     try {
-        const response = await RecipeModel.find({});
-        res.json(response);
+        const recipes = await RecipeModel.find({userOwner: req.user.id});
+        if(!recipes === 0) { 
+            console.log('No recipes found')
+        }
+        res.json(recipes);
     } catch (error) {
         res.json(error);
     }
@@ -26,7 +29,7 @@ const getRecipeById = async (req, res) => {
 // get user's own recipe
 const getUserRecipes = async (req, res) => {
     try {
-        const recipes = await RecipeModel.find({ userOwner: req.user.userId });
+        const recipes = await RecipeModel.find({ userOwner: req.user.id });
         res.json(recipes);
     } catch (error) {
         res.json(error);
@@ -35,7 +38,7 @@ const getUserRecipes = async (req, res) => {
 
 // create recipe
 const createRecipe = async (req, res) => {
-    console.log(req.user)
+    console.log(req.user);
     const recipe = new RecipeModel(req.body);
     try {
         const response = await recipe.save();
@@ -60,18 +63,19 @@ const deleteRecipe = async (req, res) => {
     }
 };
 
-export const verifyToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
     const token = req.headers.authorization;
     if (!token) {
-        res.sendStatus(401);
+        return res.sendStatus(401);
     }
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, verified) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) return res.sendStatus(403);
+        req.user = decoded; 
     });
-    req.user = verified;
+
     next();
 };
 
 // export
-export { getRecipes, getRecipeById, getUserRecipes, createRecipe };
+export { getRecipes, getRecipeById, getUserRecipes, createRecipe, verifyToken };

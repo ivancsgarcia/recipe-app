@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import NoImage from "../assets/images/no-img.jpg";
+import { useCookies } from "react-cookie";
 import axios from "axios";
 import { useParams } from "react-router";
 import { Header } from "../components/Header";
@@ -17,13 +17,15 @@ interface Recipe {
 
 export const RecipeDetailsPage = () => {
     const params = useParams();
+    const [cookies, setCookies] = useCookies(["access_token"]);
     const [recipe, setRecipe] = useState<Recipe>();
 
     useEffect(() => {
         const getRecipeById = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:3001/recipes/${params.id}`
+                    `http://localhost:3001/recipes/${params.id}`,
+                    { headers: { authorization: cookies.access_token } }
                 );
                 const data = response.data;
                 setRecipe(data);
@@ -56,7 +58,7 @@ export const RecipeDetailsPage = () => {
                                             {recipe.name}
                                         </h1>
                                     </div>
-                                    <div className="my-4 w-full md:w-[30%]">
+                                    <div className="my-4 w-full md:w-[30%] md:text-right">
                                         <p className="font-bold">
                                             Total time to serve:
                                         </p>
@@ -64,7 +66,9 @@ export const RecipeDetailsPage = () => {
                                     </div>
                                 </div>
 
-                                <p className="hyphens-auto">{recipe.description}</p>
+                                <p className="hyphens-auto">
+                                    {recipe.description}
+                                </p>
                             </div>
 
                             <div className="mb-8">
